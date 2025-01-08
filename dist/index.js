@@ -148581,6 +148581,8 @@ async function getRegistrationToken() {
   const octokit = github.getOctokit(config.input.githubToken);
 
   try {
+    context = config.githubContext;
+    core.info(`User: ${context.owner}, Repo: ${context.repo}`);
     const response = await octokit.request('POST /repos/{owner}/{repo}/actions/runners/registration-token', config.githubContext);
     core.info('GitHub Registration Token is received');
     return response.data.token;
